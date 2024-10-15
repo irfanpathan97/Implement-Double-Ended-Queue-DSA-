@@ -1,0 +1,117 @@
+1]In this there exists 2 queues in single array
+one act from start to end
+other end to start
+user will be given option enqueue from 1,enqueue from 2,dequeue from 1,dequeue from 2nd,print queue 1,print queue2
+start from mid to create queues
+
+
+import java.util.Scanner;
+
+public class TwoQueuesInArray {
+    private int[] array;
+    private int size;
+    private int front1, rear1, front2, rear2;
+
+    public TwoQueuesInArray(int capacity) {
+        array = new int[capacity];
+        size = capacity;
+        front1 = size / 2;
+        rear1 = front1;
+        front2 = size / 2 - 1;
+        rear2 = front2;
+    }
+
+    public void enqueue1(int value) {
+        if (rear1 < size - 1) {
+            array[rear1++] = value;
+        } else {
+            System.out.println("Queue 1 is full");
+        }
+    }
+
+    public void enqueue2(int value) {
+        if (rear2 >= 0) {
+            array[rear2--] = value;
+        } else {
+            System.out.println("Queue 2 is full");
+        }
+    }
+
+    public void dequeue1() {
+        if (front1 < rear1) {
+            System.out.println("Dequeued from Queue 1: " + array[front1++]);
+        } else {
+            System.out.println("Queue 1 is empty");
+        }
+    }
+
+    public void dequeue2() {
+        if (front2 > rear2) {
+            System.out.println("Dequeued from Queue 2: " + array[front2--]);
+        } else {
+            System.out.println("Queue 2 is empty");
+        }
+    }
+
+    public void printQueue1() {
+        if (front1 < rear1) {
+            System.out.print("Queue 1: ");
+            for (int i = front1; i < rear1; i++) {
+                System.out.print(array[i] + " ");
+            }
+            System.out.println();
+        } else {
+            System.out.println("Queue 1 is empty");
+        }
+    }
+
+    public void printQueue2() {
+        if (front2 > rear2) {
+            System.out.print("Queue 2: ");
+            for (int i = front2; i > rear2; i--) {
+                System.out.print(array[i] + " ");
+            }
+            System.out.println();
+        } else {
+            System.out.println("Queue 2 is empty");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        TwoQueuesInArray queues = new TwoQueuesInArray(10); 
+
+        while (true) {
+            System.out.println("Options: 1. Enqueue 1 2. Enqueue 2 3. Dequeue 1 4. Dequeue 2 5. Print Queue 1 6. Print Queue 2 7. Exit");
+            int option = scanner.nextInt();
+            switch (option) {
+                case 1:
+                    System.out.print("Enter value to enqueue in Queue 1: ");
+                    queues.enqueue1(scanner.nextInt());
+                    break;
+                case 2:
+                    System.out.print("Enter value to enqueue in Queue 2: ");
+                    queues.enqueue2(scanner.nextInt());
+                    break;
+                case 3:
+                    queues.dequeue1();
+                    break;
+                case 4:
+                    queues.dequeue2();
+                    break;
+                case 5:
+                    queues.printQueue1();
+                    break;
+                case 6:
+                    queues.printQueue2();
+                    break;
+                case 7:
+                    System.out.println("Exiting.");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+    }
+}
